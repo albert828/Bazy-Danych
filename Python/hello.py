@@ -24,14 +24,14 @@ print("Show tables:")
 for x in mycursor:
   print(x)
 print("\n")
-
-print("Select idksiazki where imieautora = Łukasz")
-sql = "SELECT idksiazki FROM ksiazki WHERE imieautora = 'Łukasz'"
-mycursor.execute(sql)
+  
+name = 'Łukasz'
+query = ("SELECT idksiazki FROM ksiazki "
+         "WHERE imieautora = %s")
+mycursor.execute(query, (name,))
 myresult = mycursor.fetchone()
 print(myresult)
 print("\n")
-
 print("Insert into zamowienia with previous id")
 idksiazki = myresult[0]
 idklienta = 2
