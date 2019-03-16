@@ -1,6 +1,5 @@
 import mysql.connector
 from datetime import date, datetime, timedelta
-import time
 
 mydb = mysql.connector.connect(
   host="localhost",
@@ -45,14 +44,8 @@ print("Insert into zamowienia with previous id")
 idksiazki = myresult[0]
 idklienta = 2
 sql_insert_query = ("INSERT INTO `zamowienia` (`idklienta`, `idksiazki`, `data`, `godzina`) VALUES (%s,%s,%s,%s)")
-
 insert_tuple = (idklienta, idksiazki, actualDate, formatedHour)
 mycursor.execute(sql_insert_query, insert_tuple)
 mydb.commit()
 print(mycursor.rowcount, "record inserted.")
 print("\n")
-"""
-actualDate = datetime.now().date()
-print("Aktualna data: ", actualDate)
-print("\n")
-"""
