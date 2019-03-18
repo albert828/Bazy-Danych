@@ -17,7 +17,7 @@ mycursor.execute("SHOW DATABASES")
 for x in mycursor:
   print(x)
 print("\n")
-print("Conected to microclimate")
+print("Conected to ksiegarnia")
 print("\n")
 
 mycursor.execute("SHOW TABLES")
@@ -40,7 +40,7 @@ formatedHour = actualHour.strftime("%H:%M:%S")
 print("Aktualna data: ", actualDate, " ", formatedHour)
 print("\n")
 
-print("Insert into zamowienia with previous id")
+print("Insert")
 idksiazki = myresult[0]
 idklienta = 2
 sql_insert_query = ("INSERT INTO `zamowienia` (`idklienta`, `idksiazki`, `data`, `godzina`) VALUES (%s,%s,%s,%s)")
