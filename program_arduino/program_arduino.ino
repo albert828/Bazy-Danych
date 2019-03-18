@@ -20,18 +20,17 @@ void loop() {
       Serial.print(sensors[sensor_nr]);
       Serial.println(values[sensor_nr]);
     }
+    ++values[0]; values[0] %= 40;
+    values[1] += 20;
+    if(values[1] == 1100)
+      values[1] = 900;
+    values[2] += 5; values[2] %= 100;
+    values[3] += 10; values[3] %= 2000;
+    values[4] += 2; values[4] %= 100;
+    ++values[5]; values[5] %= 3;
+    values[6] += 4; values[6] %= 150;
+    ++values[7]; values[8] %= 10;
+    values[8] += 50; values[8] %= 2000;
   }
- 
-  ++values[0]; values[0] %= 40;
-  values[1] += 20;
-  if(values[1] == 1100)
-    values[1] = 900;
-  values[2] += 5; values[2] %= 100;
-  values[3] += 10; values[3] %= 2000;
-  values[4] += 2; values[4] %= 100;
-  ++values[5]; values[5] %= 3;
-  values[6] += 4; values[6] %= 150;
-  ++values[7]; values[8] %= 10;
-  values[8] += 50; values[8] %= 2000;
   delay(10000);
 }
