@@ -1,0 +1,195 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = pl_PL
+
+% $Id:$
+
+%Author: Wojciech Domski
+%Szablon do ząłożeń projektowych, raportu i dokumentacji z steorwników robotów
+%Wersja v.1.0.0
+%
+
+
+%% Konfiguracja:
+\newcommand{\kurs}{Bazy danych}
+\newcommand{\formakursu}{Projekt}
+
+%odkomentuj właściwy typ projektu, a pozostałe zostaw zakomentowane
+\newcommand{\doctype}{Za\l{}o\.{z}enia projektowe} %etap I
+%\newcommand{\doctype}{Raport} %etap II
+%\newcommand{\doctype}{Dokumentacja} %etap III
+
+%wpisz nazwę projektu
+\newcommand{\projectname}{Urządzenie badające mikroklimat w pomieszczeniach}
+
+%wpisz akronim projektu
+\newcommand{\acronim}{Mikruś}
+
+%wpisz Imię i nazwisko oraz numer albumu
+\newcommand{\osobaA}{Albert \textsc{Lis}, 235534}
+%w przypadku projektu jednoosobowego usuń zawartość nowej komendy
+%\newcommand{\osobaB}{Bart\l{}omiej \textsc{Cabacki}, 123457}
+
+%wpisz termin w formie, jak poniżej dzień, parzystość, godzina
+\newcommand{\termin}{Śr 13:05}
+
+%wpisz imię i nazwisko prowadzącego
+\newcommand{\prowadzacy}{drr in\.{z}. Paweł \textsc{Drąg}}
+
+\documentclass[10pt, a4paper]{article}
+
+\include{preambula}
+	
+\begin{document}
+
+\def\tablename{Tabela}	%zmienienie nazwy tabel z Tablica na Tabela
+
+\begin{titlepage}
+	\begin{center}
+		\textsc{\LARGE \formakursu}\\[1cm]		
+		\textsc{\Large \kurs}\\[0.5cm]		
+		\rule{\textwidth}{0.08cm}\\[0.4cm]
+		{\huge \bfseries \doctype}\\[1cm]
+		{\huge \bfseries \projectname}\\[0.5cm]
+		{\huge \bfseries \acronim}\\[0.4cm]
+		\rule{\textwidth}{0.08cm}\\[1cm]
+		
+		\begin{flushright} \large
+		\emph{Skład grupy:}\\
+		\osobaA\\[0.4cm]
+
+		
+		\emph{Termin: }\termin\\[0.4cm]
+
+		\emph{Prowadzący:} \\
+		\prowadzacy \\
+		
+		\end{flushright}
+		
+		\vfill
+		
+		{\large \today}
+	\end{center}	
+\end{titlepage}
+
+\newpage
+%\tableofcontents
+
+%Obecne we wszystkich dokumentach
+\section{Opis projektu}
+\label{sec:OpisProjektu}
+
+Celem projektu jest stworzenie relacyjnej bazy danych w oparciu o język MySQL przechowującej dane pomiarowe urządzenia badającego mikroklimat w pomieszczeniach. Urządzenie mierzy takie informacje jak temperatura, wilgotność, ciśnienie, ilość światła oraz hałas i okresowo przesyła te informacje do bazy danych. Pomiary mogą pochodzić z wielu pomieszczeń.
+Dodatkowo do bazy danych zostanie stworzona witryna www pozwalająca sprawdzić zarówno aktualny stan mikrokilmatu w dowolnym pomieszczeniu jak i dane historyczne. Opcjonalnie witryna może wyświetlać informacje mające na celu poprawę komfortu użytkowników.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{figures/uml.png}
+	\caption{Architektura systemu}
+	\label{fig:ArchitekturaSys}
+\end{figure}
+
+%Obecne w dokumencie do etapu II oraz III
+\section{Serwer}
+	Lokalny, stworzony za pomocą aplikacji XAMPP. Pozwala na szybkie wprowadzanie i testowanie zmian.
+	
+\section{Projekt bazy danych}
+	Baza zostanie napisana w języku MySQL. Będzie posiadać 3 tabele:
+	\begin{enumerate}
+		\item measurement
+		\newline
+		Tabela główna posiada informację na temat pomiarów.
+		
+		\item rooms
+		\newline
+		Tabela przechowująca informację na temat pokojów w których zostały dokonane pomiary.
+		
+		\item sensors
+		\newline
+		Tabela przechowująca informację na temat czujników.
+	\end{enumerate}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{figures/diag1.png}
+	\caption{Architektura bazy danych}
+	\label{fig:ArchitekturaBD1}
+\end{figure}
+
+Opcjonalnie zostanie dodana dodatkowa tabela przechowująca daty. Wtedy struktura bazy danych będzie taka jak na rys: \ref{fig:ArchitekturaBD2}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{figures/diag2.png}
+	\caption{Architektura bazy danych}
+	\label{fig:ArchitekturaBD2}
+\end{figure}
+
+\section{Projekt witryny www}
+Zostanie napisana prosta witryna w języku HTML + CSS. Witryna powinna umożliwić wyświetlanie danych pochodzących z konkretnego pomieszczenia oraz czujnika. Powinna dodatkowo umożliwić podgląd danych historycznych. Opcjonalnie można dodać logikę tak aby wyświetlać komunikaty w stylu: "Jest za gorąco otwórz okno".
+%Obecne w dokumencie do etapu II oraz III
+\section{Komunikacja między sterownikiem a bazą danych}
+Do tego zadania zostanie wykorzystany program napisany w języku Python w oparciu o bibliotekę: mysql connector \cite{mysql} oraz port szeregowy do komunikacji między sterownikiem a PC.
+
+%Obecne w dokumencie do etapu II oraz III
+\section{Komunikacja między bazą danych a witryną www}
+
+Zostanie wykorzystany skrypt w języku PHP. Jego zadaniem będzie kierowanie do bazy danych odpowiednich zapytań SELECT. W przypadku implementacji logiki zostanie on wykorzystany również w tym celu.
+
+%Obecne w dokumencie do etapu I
+\section{Harmonogram pracy}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{figures/gantt.png}
+	\caption{Diagram Gantta}
+	\label{fig:DiagramGantta}
+\end{figure}
+
+\begin{thebibliography}{9}
+	
+	\bibitem{mysql}
+	\href{https://dev.mysql.com/doc/connector-python/en/}{Biblioteka MySQL dla języka Python}
+	
+\end{thebibliography}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,158 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = pl_PL
+
+% $Id:$
+
+%Author: Wojciech Domski
+%Szablon do ząłożeń projektowych, raportu i dokumentacji z steorwników robotów
+%Wersja v.1.0.0
+%
+
+
+%% Konfiguracja:
+\newcommand{\kurs}{Bazy danych}
+\newcommand{\formakursu}{Projekt}
+
+%odkomentuj właściwy typ projektu, a pozostałe zostaw zakomentowane
+%\newcommand{\doctype}{Za\l{}o\.{z}enia projektowe} %etap I
+\newcommand{\doctype}{Raport} %etap II
+%\newcommand{\doctype}{Dokumentacja} %etap III
+
+%wpisz nazwę projektu
+\newcommand{\projectname}{Urządzenie badające mikroklimat w pomieszczeniach}
+
+%wpisz akronim projektu
+\newcommand{\acronim}{Mikruś}
+
+%wpisz Imię i nazwisko oraz numer albumu
+\newcommand{\osobaA}{Albert \textsc{Lis}, 235534}
+%w przypadku projektu jednoosobowego usuń zawartość nowej komendy
+%\newcommand{\osobaB}{Bart\l{}omiej \textsc{Cabacki}, 123457}
+
+%wpisz termin w formie, jak poniżej dzień, parzystość, godzina
+\newcommand{\termin}{Śr 13:05}
+
+%wpisz imię i nazwisko prowadzącego
+\newcommand{\prowadzacy}{drr in\.{z}. Paweł \textsc{Drąg}}
+
+\documentclass[10pt, a4paper]{article}
+
+\include{preambula}
+
+	
+\begin{document}
+
+\def\tablename{Tabela}	%zmienienie nazwy tabel z Tablica na Tabela
+
+\begin{titlepage}
+	\begin{center}
+		\textsc{\LARGE \formakursu}\\[1cm]		
+		\textsc{\Large \kurs}\\[0.5cm]		
+		\rule{\textwidth}{0.08cm}\\[0.4cm]
+		{\huge \bfseries \doctype}\\[1cm]
+		{\huge \bfseries \projectname}\\[0.5cm]
+		{\huge \bfseries \acronim}\\[0.4cm]
+		\rule{\textwidth}{0.08cm}\\[1cm]
+		
+		\begin{flushright} \large
+		\emph{Skład grupy:}\\
+		\osobaA\\[0.4cm]
+
+		
+		\emph{Termin: }\termin\\[0.4cm]
+
+		\emph{Prowadzący:} \\
+		\prowadzacy \\
+		
+		\end{flushright}
+		
+		\vfill
+		
+		{\large \today}
+	\end{center}	
+\end{titlepage}
+
+\newpage
+%\tableofcontents
+
+%Obecne we wszystkich dokumentach
+\section{Zrealizowane zadania}
+\label{sec:OpisProjektu}
+
+Udało mi się zrealizować pierwszy kamień milowy. Program poprawnie pobiera informacje ze sterownika i prawidłowo dodaje je do bazy. Niestety ze względu na brak rzeczywistych czujników zmuszony byłem zasymulować ich działanie. Stąd informacje w bazie mogą wydawać się nierzeczywiste.
+
+%Obecne w dokumencie do etapu II oraz III
+\section{Struktura bazy danych}
+	Stworzyłem 3 tabele do przechowywania pomiarów, zgodnie z założeniami projektowymi. Do tabeli measurements [\ref{Measurements}] sterownik dodaje dane samoczynnie po ich zmierzeniu. Natomiast tabele rooms [\ref{Rooms}] i sensors [\ref{Sensors}] zostały stworzone ręcznie.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{figures/measurements.png}
+		\caption{Tabela przechowująca pomiary}
+		\label{Measurements}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{figures/rooms.png}
+		\caption{Tabela przechowująca pokoje}
+		\label{Rooms}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{figures/sensors.png}
+		\caption{Tabela przechowująca sensory}
+		\label{Sensors}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{figures/tabela.png}
+		\caption{Przykładowe zawartości (a) measurements (b) sensors (c) rooms }
+		\label{Sensors12}
+	\end{figure}
+
+\section{Obserwacje}
+Chciałbym zoptymalizować program przesyłający dane do bazy danych tak aby był dla niej mniej obciążający. Aktualnie w przypadku dodawania pakietu danych tj. 4 pokoje i 9 czujników wykonuję 72 zapytania SELECT i 36 INSERT. To z kolei zajmuje ponad sekundę. Poza tym drobnym niuansem wszystko działa poprawnie.
+
+	
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
