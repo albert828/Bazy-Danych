@@ -1,0 +1,139 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = pl_PL
+
+% $Id:$
+
+%Author: Wojciech Domski
+%Szablon do ząłożeń projektowych, raportu i dokumentacji z steorwników robotów
+%Wersja v.1.0.0
+%
+
+
+%% Konfiguracja:
+\newcommand{\kurs}{Bazy danych}
+\newcommand{\formakursu}{Projekt}
+
+%odkomentuj właściwy typ projektu, a pozostałe zostaw zakomentowane
+%\newcommand{\doctype}{Za\l{}o\.{z}enia projektowe} %etap I
+\newcommand{\doctype}{Raport} %etap II
+%\newcommand{\doctype}{Dokumentacja} %etap III
+
+%wpisz nazwę projektu
+\newcommand{\projectname}{Urządzenie badające mikroklimat w pomieszczeniach}
+
+%wpisz akronim projektu
+\newcommand{\acronim}{Mikruś}
+
+%wpisz Imię i nazwisko oraz numer albumu
+\newcommand{\osobaA}{Albert \textsc{Lis}, 235534}
+%w przypadku projektu jednoosobowego usuń zawartość nowej komendy
+%\newcommand{\osobaB}{Bart\l{}omiej \textsc{Cabacki}, 123457}
+
+%wpisz termin w formie, jak poniżej dzień, parzystość, godzina
+\newcommand{\termin}{Śr 13:05}
+
+%wpisz imię i nazwisko prowadzącego
+\newcommand{\prowadzacy}{dr in\.{z}. Paweł \textsc{Drąg}}
+
+\documentclass[10pt, a4paper]{article}
+
+\include{preambula}
+
+	
+\begin{document}
+
+\def\tablename{Tabela}	%zmienienie nazwy tabel z Tablica na Tabela
+
+\begin{titlepage}
+	\begin{center}
+		\textsc{\LARGE \formakursu}\\[1cm]		
+		\textsc{\Large \kurs}\\[0.5cm]		
+		\rule{\textwidth}{0.08cm}\\[0.4cm]
+		{\huge \bfseries \doctype}\\[1cm]
+		{\huge \bfseries \projectname}\\[0.5cm]
+		{\huge \bfseries \acronim}\\[0.4cm]
+		\rule{\textwidth}{0.08cm}\\[1cm]
+		
+		\begin{flushright} \large
+	%	\emph{Skład grupy:}\\
+		\osobaA\\[0.4cm]
+
+		
+		\emph{Termin: }\termin\\[0.4cm]
+
+		\emph{Prowadzący:} \\
+		\prowadzacy \\
+		
+		\end{flushright}
+		
+		\vfill
+		
+		{\large \today}
+	\end{center}	
+\end{titlepage}
+
+%\newpage
+%\tableofcontents
+
+%Obecne we wszystkich dokumentach
+\section{Zrealizowane zadania}
+\label{sec:OpisProjektu}
+
+W tym tygodniu stworzyłem prostą stronę w języku HTML oraz zacząłem pisać skrypt łączący witrynę z bazą danych w języku PHP. 
+
+\section{Obserwacje}
+Po kilku próbach stwierdziłem że funkcjonalność języka PHP jest dla mnie problematyczna oraz konflikty które chciałem rozwiązać są bardziej skomplikowane niż początkowo zakładałem. To wymaga ode mnie znacznie lepszego poznania funkcjonowania tego języka. Dlatego uwzględniając zasoby ludzkie (pracuję sam nad tym projektem) zmieniłem podejście.
+
+\section{Modyfikacje}
+Zamiast skupiać się na wielu środowiskach będę pracował w jednym. Konkretnie w języku Python. Na początek przewiduję stworzenie aplikacji konsolowej która będzie pozwalać wyświetlać założone w projekcie dane. Opcjonalnie zostanie ona wyposażona w graficzny interfejs użytkownika.
+
+\section{Struktura}
+%Obecne w dokumencie do etapu II oraz III
+Po modyfikacjach struktura przepływu informacji powinna wyglądać następująco:
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{figures/diag.png}
+		\caption{Diagram przepływu informacji.}
+		\label{Measurements}
+	\end{figure}
+	
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
