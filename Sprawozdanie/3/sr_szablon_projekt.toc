@@ -1,0 +1,11 @@
+\babel@toc {polish}{}
+\contentsline {section}{\numberline {1}Opis projektu}{2}{section.1}% 
+\contentsline {section}{\numberline {2}Serwer}{2}{section.2}% 
+\contentsline {section}{\numberline {3}Projekt bazy danych}{2}{section.3}% 
+\contentsline {section}{\numberline {4}Projekt witryny www}{3}{section.4}% 
+\contentsline {section}{\numberline {5}Komunikacja mi\IeC {\k e}dzy sterownikiem a baz\IeC {\k a} danych}{3}{section.5}% 
+\contentsline {section}{\numberline {6}Komunikacja mi\IeC {\k e}dzy baz\IeC {\k a} danych a witryn\IeC {\k a} www}{3}{section.6}% 
+\contentsline {section}{\numberline {7}Harmonogram pracy}{3}{section.7}% 
+\contentsline {subsection}{\numberline {7.1}Podzia\IeC {\l } pracy}{4}{subsection.7.1}% 
+\contentsline {section}{\numberline {8}Zadania niezrealizowane}{4}{section.8}% 
+\contentsline {section}{\numberline {9}Podsumowanie}{4}{section.9}% 

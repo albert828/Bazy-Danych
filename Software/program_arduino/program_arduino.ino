@@ -15,11 +15,8 @@ void loop() {
   for(uint8_t room_number = 0; room_number < 4; ++room_number)
   {
     for(uint8_t sensor_nr = 0; sensor_nr < NR_SENSORS; ++sensor_nr)
-    {
-      Serial.print(rooms[room_number]);
-      Serial.print(sensors[sensor_nr]);
-      Serial.println(values[sensor_nr]);
-    }
+      Serial.println(String("") + rooms[room_number] + " " + sensors[sensor_nr] + " " + values[sensor_nr]);
+      
     ++values[0]; values[0] %= 40;
     values[1] += 20;
     if(values[1] == 1100)
