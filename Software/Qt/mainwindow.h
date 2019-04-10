@@ -22,9 +22,14 @@ private slots:
 
     void on_actionDisconnect_triggered();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase db;
+    QString room;
+    QString sensor;
+    uint32_t nr_records;
 };
 
 #endif // MAINWINDOW_H
