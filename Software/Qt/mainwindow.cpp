@@ -34,6 +34,8 @@ void MainWindow::on_actionConnect_triggered()
         ui->statusBar->showMessage("Conected :)", 5000);
         ui->comboBox->addItem("All");
         ui->comboBox_2->addItem("All");
+        ui->comboBox_3->addItem("Descending");
+        ui->comboBox_3->addItem("Ascending");
 
         QSqlQuery query;
         query.prepare("SELECT name FROM sensors");
@@ -69,6 +71,8 @@ void MainWindow::on_actionDisconnect_triggered()
         ui->comboBox->clear();
         ui->comboBox_2->clear();
         ui->spinBox->setValue(0);
+        ui->comboBox_3->clear();
+        ui->comboBox_3->clear();
     }
 }
 
@@ -106,7 +110,11 @@ void MainWindow::on_pushButton_clicked()
             q += "WHERE sensor_id=" + query1.value(0).toString();
             qDebug() << q;
         }
-        q += " ORDER BY measure_id DESC";
+        q += " ORDER BY measure_id";
+        if(ui->comboBox_3->currentText() == "Descending")
+            q += " DESC";
+        else
+            q += " ASC";
         if(ui->spinBox->value() != 0)
             q += " LIMIT " + QString::number(ui->spinBox->value());
         query.prepare(q);
@@ -154,7 +162,11 @@ void MainWindow::on_pushButton_clicked()
         uint32_t sensor_id = query.value(0).toInt();
         //qDebug() << sensor_id;
         QString qr = "SELECT * FROM measurement WHERE ( room_id = (:room_id) AND sensor_id = (:sensor_id) ) "
-                     "ORDER BY measure_id DESC";
+                     "ORDER BY measure_id";
+        if(ui->comboBox_3->currentText() == "Descending")
+            qr += " DESC";
+        else
+            qr += " ASC";
         if(ui->spinBox->value() != 0)
             qr += " LIMIT " + QString::number(ui->spinBox->value());
         query.prepare(qr);
