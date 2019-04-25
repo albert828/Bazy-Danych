@@ -85,7 +85,7 @@ void MainWindow::on_pushButton_clicked()
     //qDebug() << room << " " << sensor << " " << nr_records;
     ui->statusBar->showMessage("Ok", 5000);
 
-    QSqlQuery query;
+    QSqlQuery query, query_statement;
     if(room == "All" || sensor == "All")
     {
         QSqlQuery query1, query2;
@@ -138,9 +138,26 @@ void MainWindow::on_pushButton_clicked()
             query2.next();
             //qDebug() << query.value(3).toString() << "   " << query2.value(0).toString();
             text += ( "\t\tPomieszczenie: " + query2.value(0).toString() );
-            text += ( "\t\tData: " + query.value(5).toString() + " " + query.value(5).toString() );
+            text += ( "\t\tData: " + query.value(4).toString());// + " " + query.value(5).toString() );
             ui->listWidget->addItem(text);
         }
+        QString text_statement = ("SELECT Temperatura, Cisnienie, Smog, CO2, Wilgotnosc, Alkohol, "
+                                  "Halas, Dym, Swiatlo FROM rooms WHERE name=(:room_name)");
+        query_statement.prepare(text_statement);
+        query_statement.bindValue(":room_name", query2.value(0).toString());
+        query_statement.exec();
+        query_statement.next();
+        QString statement_text = ("Aktualny komunikat: "
+                                  + query_statement.value(0).toString() +
+                                  ", "  + query_statement.value(1).toString() +
+                                  ", "  + query_statement.value(2).toString() +
+                                  ", "  + query_statement.value(3).toString() +
+                                  ", "  + query_statement.value(4).toString() +
+                                  ", "  + query_statement.value(5).toString() +
+                                  ", "  + query_statement.value(6).toString() +
+                                  ", "  + query_statement.value(7).toString() +
+                                  ", "  + query_statement.value(8).toString());
+        ui->listWidget->insertItem(0,statement_text);
     }
     else
     {
@@ -183,10 +200,27 @@ void MainWindow::on_pushButton_clicked()
             text += ( "\tCzujnik: " + sensor );
             text += ( "\tWartosc: " + query.value(2).toString() );
             text += ( "\tPomieszczenie: " + room );
-            text += ( "\tData: " + query.value(5).toString() + " " + query.value(5).toString() );
+            text += ( "\tData: " + query.value(4).toString());// + " " + query.value(5).toString() );
             ui->listWidget->addItem(text);
             //qDebug() << query.value().to
         }
+        QString text_statement = ("SELECT Temperatura, Cisnienie, Smog, CO2, Wilgotnosc, Alkohol, "
+                                  "Halas, Dym, Swiatlo FROM rooms WHERE name=(:room_name)");
+        query_statement.prepare(text_statement);
+        query_statement.bindValue(":room_name", room);
+        query_statement.exec();
+        query_statement.next();
+        QString statement_text = ("Aktualny komunikat: "
+                                  + query_statement.value(0).toString() +
+                                  ", "  + query_statement.value(1).toString() +
+                                  ", "  + query_statement.value(2).toString() +
+                                  ", "  + query_statement.value(3).toString() +
+                                  ", "  + query_statement.value(4).toString() +
+                                  ", "  + query_statement.value(5).toString() +
+                                  ", "  + query_statement.value(6).toString() +
+                                  ", "  + query_statement.value(7).toString() +
+                                  ", "  + query_statement.value(8).toString());
+        ui->listWidget->insertItem(0,statement_text);
     }
 
     //query.exec();

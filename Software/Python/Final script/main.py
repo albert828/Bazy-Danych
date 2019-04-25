@@ -5,6 +5,12 @@ import mysql.connector
 from datetime import date, datetime, timedelta
 #import serial.tools.list_ports as port_list
 
+
+def update_command(roomName, sensorName, command):
+  query = ("UPDATE rooms SET " + sensorName + " = '" + command + "' WHERE name = '" + roomName + "';")
+  #print(query)
+  return query
+
 #ports = list(port_list.comports())
 #for p in ports: 
 #    print(p)
@@ -49,9 +55,15 @@ while True:
     roomName = splitedData[0]
     sensorName = splitedData[1]
     sensorValue = int(splitedData[2])
+    command = ""
+    for x in range (3, len(splitedData)):
+      command += (splitedData[x] + " ")
     #print(sensorName, sensorValue, roomName)
     #print("\n")
     #żądanie sql
+    query = update_command(roomName, sensorName, command)
+    mycursor.execute(query)
+
     query = ("SELECT sensor_id FROM sensors "
             "WHERE name = %s")
     # %s wczyta sensorName
@@ -69,17 +81,17 @@ while True:
     roomId = mycursor.fetchone()
     roomId = roomId[0]
     #pobranie aktualnej daty
-    actualDate = datetime.now().date()
-    actualHour = datetime.now().time()
+    actualDate = datetime.now()
+    #actualHour = datetime.now().time()
     #formatowanie do bazy
-    formatedHour = actualHour.strftime("%H:%M:%S")
+    formatedDate = actualDate.strftime('%Y-%m-%d %H:%M:%S')
     #print("Aktualna data:", actualDate, formatedHour)
     #print("\n")
 
     #print("Insert", sensorName, "ID =", sensorId, "Value =", sensorValue, "czas:",actualDate, formatedHour, "pokoj", roomName, "Id pokoju", roomId)
     #wstawienie rekordu
-    sql_insert_query = ("INSERT INTO `measurement` (`sensor_id`, `value`,`room_id`, `date`, `hour`) VALUES (%s,%s,%s,%s,%s)")
-    insert_tuple = (sensorId, sensorValue, roomId, actualDate, formatedHour)
+    sql_insert_query = ("INSERT INTO `measurement` (`sensor_id`, `value`,`room_id`, `date`) VALUES (%s,%s,%s,%s)")
+    insert_tuple = (sensorId, sensorValue, roomId, formatedDate)
     mycursor.execute(sql_insert_query, insert_tuple)
     #potwierdzenie zmian
     mydb.commit()
