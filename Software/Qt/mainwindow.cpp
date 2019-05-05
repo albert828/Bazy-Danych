@@ -4,6 +4,8 @@
 //#include <QtSql/QSqlDatabase>
 #include <QtSql>
 #include <QMessageBox>
+#include <algorithm>
+#include <string>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -132,6 +134,7 @@ void MainWindow::on_pushButton_clicked()
         {
             //qDebug() << query.value(0).toString();
             QString text = ( "ID pomiaru: " + query.value(0).toString() );
+            QString text1;
             query1.prepare("Select name FROM sensors WHERE sensor_id = (:sensor_id)");
             query1.bindValue(":sensor_id", query.value(1).toString());
             query1.exec();
@@ -144,26 +147,13 @@ void MainWindow::on_pushButton_clicked()
             query2.next();
             //qDebug() << query.value(3).toString() << "   " << query2.value(0).toString();
             text += ( "\t\tPomieszczenie: " + query2.value(0).toString() );
-            text += ( "\t\tData: " + query.value(4).toString());// + " " + query.value(5).toString() );
+            text1 = ( "\t\tData: " + query.value(4).toString());// + " " + query.value(5).toString() );
+            std::replace(text1.begin(), text1.end(), 'T', ' ');
+            text1.remove(text1.size() - 4, 4);
+            text += text1;
+
             ui->listWidget->addItem(text);
         }
-        QString text_statement = ("SELECT Temperatura, Cisnienie, Smog, CO2, Wilgotnosc, Alkohol, "
-                                  "Halas, Dym, Swiatlo FROM rooms WHERE name=(:room_name)");
-        query_statement.prepare(text_statement);
-        query_statement.bindValue(":room_name", query2.value(0).toString());
-        query_statement.exec();
-        query_statement.next();
-        QString statement_text = ("Aktualny komunikat: "
-                                  + query_statement.value(0).toString() +
-                                  ", "  + query_statement.value(1).toString() +
-                                  ", "  + query_statement.value(2).toString() +
-                                  ", "  + query_statement.value(3).toString() +
-                                  ", "  + query_statement.value(4).toString() +
-                                  ", "  + query_statement.value(5).toString() +
-                                  ", "  + query_statement.value(6).toString() +
-                                  ", "  + query_statement.value(7).toString() +
-                                  ", "  + query_statement.value(8).toString());
-        ui->listWidget->insertItem(0,statement_text);
     }
     else
     {
@@ -206,27 +196,14 @@ void MainWindow::on_pushButton_clicked()
             text += ( "\tCzujnik: " + sensor );
             text += ( "\tWartosc: " + query.value(2).toString() );
             text += ( "\tPomieszczenie: " + room );
-            text += ( "\tData: " + query.value(4).toString());// + " " + query.value(5).toString() );
+            QString text1 = ( "\t\tData: " + query.value(4).toString());// + " " + query.value(5).toString() );
+            std::replace(text1.begin(), text1.end(), 'T', ' ');
+            text1.remove(text1.size() - 4, 4);
+            text += text1;
+
             ui->listWidget->addItem(text);
             //qDebug() << query.value().to
         }
-        QString text_statement = ("SELECT Temperatura, Cisnienie, Smog, CO2, Wilgotnosc, Alkohol, "
-                                  "Halas, Dym, Swiatlo FROM rooms WHERE name=(:room_name)");
-        query_statement.prepare(text_statement);
-        query_statement.bindValue(":room_name", room);
-        query_statement.exec();
-        query_statement.next();
-        QString statement_text = ("Aktualny komunikat: "
-                                  + query_statement.value(0).toString() +
-                                  ", "  + query_statement.value(1).toString() +
-                                  ", "  + query_statement.value(2).toString() +
-                                  ", "  + query_statement.value(3).toString() +
-                                  ", "  + query_statement.value(4).toString() +
-                                  ", "  + query_statement.value(5).toString() +
-                                  ", "  + query_statement.value(6).toString() +
-                                  ", "  + query_statement.value(7).toString() +
-                                  ", "  + query_statement.value(8).toString());
-        ui->listWidget->insertItem(0,statement_text);
     }
 
     //query.exec();
