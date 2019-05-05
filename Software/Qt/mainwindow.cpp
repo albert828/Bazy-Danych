@@ -11,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->actionDisconnect->setEnabled(false);
+    ui->pushButton->setEnabled(false);
+    ui->recommendations->setEnabled(false);
 }
 
 MainWindow::~MainWindow()
@@ -30,6 +32,8 @@ void MainWindow::on_actionConnect_triggered()
     {
         ui->actionDisconnect->setEnabled(true);
         ui->actionConnect->setEnabled(false);
+        ui->pushButton->setEnabled(true);
+        ui->recommendations->setEnabled(true);
         //QMessageBox::information(this, "Good :)", "Connected");
         ui->statusBar->showMessage("Conected :)", 5000);
         ui->comboBox->addItem("All");
@@ -65,6 +69,8 @@ void MainWindow::on_actionDisconnect_triggered()
     {
         ui->actionDisconnect->setEnabled(false);
         ui->actionConnect->setEnabled(true);
+        ui->pushButton->setEnabled(false);
+        ui->recommendations->setEnabled(false);
         db.close();
         ui->statusBar->showMessage("Conection closed", 5000);
         ui->listWidget->clear();
@@ -224,4 +230,52 @@ void MainWindow::on_pushButton_clicked()
     }
 
     //query.exec();
+}
+
+void MainWindow::on_recommendations_clicked()
+{
+    ui->listWidget->clear();
+    room = ui->comboBox->currentText();
+    ui->statusBar->showMessage("Ok", 5000);
+    QSqlQuery query;
+    if(room == "All")
+    {
+        QString q = "SELECT * from rooms";
+        query.prepare(q);
+        query.exec();
+        QString text = ("Aktualny komunikat:");
+        ui->listWidget->insertItem(0,text);
+        while(query.next())
+        {
+            text = "Pomieszczenie: ";
+            for (int32_t counter{0}; counter < 10; ++counter)
+            {
+                if(counter == 0)
+                    continue;
+                text += query.value(counter).toString();
+                if(text.back() != ' ')
+                    text += ' ';
+            }
+            ui->listWidget->insertItem(1,text);
+        }
+    }
+    else
+    {
+        QString q = "SELECT * from rooms WHERE name=(:room_name)";
+        query.prepare(q);
+        query.bindValue(":room_name", room);
+        query.exec();
+        query.next();
+        QString text = ("Aktualny komunikat:\n");
+        text += "Pomieszczenie: ";
+        text += room;
+        text += ' ';
+        for (int32_t counter{2}; counter < 10; ++counter)
+        {
+            text += query.value(counter).toString();
+            if(text.back() != ' ')
+                text += ' ';
+        }
+        ui->listWidget->insertItem(0,text);
+    }
 }

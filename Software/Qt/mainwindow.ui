@@ -88,6 +88,13 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QPushButton" name="recommendations">
+        <property name="text">
+         <string>Show recommendations</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
     <item row="0" column="1">

@@ -24,6 +24,8 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_recommendations_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase db;
