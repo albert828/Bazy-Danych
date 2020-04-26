@@ -1,4 +1,7 @@
-### Bazy danych (MySQL, Qt, Python, Arduino (C/C++))
+# Databases 
+
+### Technologie: MySQL, Qt, Python, Arduino (C/C++)
+
 [Youtube](https://youtu.be/Ghi_OZsOplU) - prezentacja YouTube.
 
 Projekt 1 osobowy.  
